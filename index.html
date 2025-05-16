@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>OCR Math Solver with Timing</title>
+<script src="https://cdn.jsdelivr.net/npm/tesseract.js@4.0.2/dist/tesseract.min.js"></script>
+</head>
+<body>
+
+<img id="questionImage" src="question_1.png" alt="Math Question" style="max-width: 100%; height: auto;" />
+
+
+<button id="solveBtn">Solve Question</button>
+<p>Extracted Text: <span id="extractedText"></span></p>
+<p>Answer: <span id="answer"></span></p>
+<p>OCR Time: <span id="ocrTime"></span> ms</p>
+
+<script>
+  function solveExpression(expr) {
+    try {
+      if (!/^[\d+\-*/\s]+$/.test(expr)) {
+        return "Invalid characters in expression";
+      }
+      const result = Function(`"use strict"; return (${expr})`)();
+      return result;
+    } catch (e) {
+      return "Invalid Expression";
+    }
+  }
+
+  document.getElementById("solveBtn").addEventListener("click", () => {
+    const img = document.getElementById("questionImage");
+
+    const startTime = performance.now(); // Start timer
+    
+    Tesseract.recognize(img, 'eng', { logger: m => console.log(m) })
+      .then(({ data: { text } }) => {
+        const endTime = performance.now(); // End timer
+        
+        const duration = endTime - startTime;
+        document.getElementById("ocrTime").textContent = duration.toFixed(2);
+
+        const cleaned = text.trim().replace(/\n/g, '').replace(/\s+/g, '');
+        document.getElementById("extractedText").textContent = cleaned;
+        const answer = solveExpression(cleaned);
+        document.getElementById("answer").textContent = answer;
+      });
+  });
+</script>
+
+
+</body>
+</html>

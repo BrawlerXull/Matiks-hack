@@ -1,7 +1,7 @@
 const WebSocket = require("ws");
 
 const url =
-  "wss://server.matiks.com/ws?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3Nzg2MjE0MTQsImlkIjoiNjgyMjY4NjVhZGU3MmNjMzY5ODUyNzAzIn0.IStZ7f0Em9_-Ut-tmM5J5luDYmcCr7Gt4AciuIXsb-c";
+  "wss://server.matiks.com/ws?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3Nzg4MzEzNjMsImlkIjoiNjgyMjY4NjVhZGU3MmNjMzY5ODUyNzAzIn0.IaObZaZ1pH3noI7mxzpPeP3bkQDez5jQpTOIDAe9WvQ";
 
 //   {
 //     "type": "message",
@@ -11,15 +11,15 @@ const url =
 const baseMessage = {
   type: "submitAnswer",
   data: {
-    gameId: "68254449f32efad1e3381355",
+    gameId: "6825a152f32efad1e3386553",
     questionId: "68226865ade72cc369852703_", // we'll add suffix here
-    submittedValue: "10",
+    submittedValue: "12",
     timeOfSubmission: Date.now(), // will update
     isCorrect: true,
     incorrectAttempts: 0,
     userId: "68226865ade72cc369852703",
   },
-  channel: "GAME_EVENT_68254449f32efad1e3381355_V2",
+  channel: "GAME_EVENT_6825a152f32efad1e3386553_V2",
 };
 
 const ws = new WebSocket(url);
